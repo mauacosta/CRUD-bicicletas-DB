@@ -3,7 +3,7 @@ let router = express.Router();
 
 let bicicletasControllerAPI = require("../../controllers/api/bicicletasControllerAPI");
 
-router.get("/", bicicletasControllerAPI.bicleta_list);
+router.get("/", bicicletasControllerAPI.bicicleta_list);
 
 router.post("/create", bicicletasControllerAPI.bicicleta_create);
 
