@@ -1,4 +1,5 @@
 var map = L.map("map").setView([19.284076, -99.1355524], 17);
+
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
   {
@@ -21,7 +22,7 @@ $.ajax({
   url: "/api/bicicletas",
   success: function (res) {
     res.bicicletas.forEach((bici) => {
-      L.marker(bici.ubicacion, { title: bici.modelo }).addTo(map);
+      L.marker([bici.lat, bici.lon], { title: bici.modelo }).addTo(map);
     });
   },
 });
