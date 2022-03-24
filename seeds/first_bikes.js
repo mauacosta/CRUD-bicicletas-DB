@@ -9,7 +9,7 @@ exports.seed = async function (knex) {
     {
       id: 1,
       color: "Rojo",
-      modelo: "bmx",
+      modelo: "BMX",
       lat: 19.284770943610578,
       lon: -99.13729060406136,
     },

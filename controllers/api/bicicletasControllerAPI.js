@@ -2,13 +2,18 @@ const Bicicleta = require("../../models/bicicleta");
 
 exports.bicleta_list = function (req, res) {
   res.status(200).json({
-    bicicletas: Bicicleta.allBicis,
+    bicicletas: Bicicleta.all,
   });
 };
 
 exports.bicicleta_create = function (req, res) {
-  let bici = new Bicicleta(req.body.id, req.body.color, req.body.modelo);
-  bici.ubicacion = [req.body.lat, req.body.lon];
+  let bici = new Bicicleta(
+    req.body.id,
+    req.body.color,
+    req.body.modelo,
+    req.body.lat,
+    req.body.lon
+  );
   Bicicleta.add(bici);
   console.log(req.body);
   res.status(200).json({

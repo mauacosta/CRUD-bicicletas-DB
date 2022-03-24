@@ -1,40 +1,53 @@
-let Bicicleta = function (id, color, modelo, ubicacion) {
+const knex = require("../database/connection");
+let Bicicleta = function (id, color, modelo, lat, lon) {
   this.id = id;
   this.color = color;
   this.modelo = modelo;
-  this.ubicacion = ubicacion;
+  this.lat = lat;
+  this.lon = lon;
+};
+
+Bicicleta.all = () => {
+  return knex.select("*").from("bicicleta");
 };
 
 Bicicleta.prototype.toString = function () {
   return `Id: ${this.id}, color: ${this.color}`;
 };
 
-Bicicleta.allBicis = [];
-
 Bicicleta.add = function (aBici) {
-  Bicicleta.allBicis.push(aBici);
+  return knex("bicicleta").insert({
+    id: aBici.id,
+    color: aBici.color,
+    modelo: aBici.modelo,
+    lat: aBici.lat,
+    lon: aBici.lon,
+  });
 };
 
-//Añadir un par de bicis:
+Bicicleta.update = (aBiciId, aBici) => {
+  return knex("bicicleta")
+    .update({
+      color: aBici.color,
+      modelo: aBici.modelo,
+      lat: aBici.lat,
+      lon: aBici.lon,
+    })
+    .where("id", aBiciId);
+};
 
-//Eliminar
 Bicicleta.findById = function (aBiciId) {
-  let aBici = Bicicleta.allBicis.find((x) => x.id == aBiciId);
+  return knex.select("*").from("bicicleta").where("id", aBiciId);
+  /*let aBici = Bicicleta.all.find((x) => x.id == aBiciId);
   if (aBici) {
     return aBici;
   } else {
     throw new Error(`No existe una bici con el id: ${aBiciId}`);
-  }
+  }*/
 };
 
 Bicicleta.removeById = function (aBiciId) {
-  for (let i = 0; i < Bicicleta.allBicis.length; i++) {
-    if (Bicicleta.allBicis[i].id == aBiciId) {
-      //Borrar
-      Bicicleta.allBicis.splice(i, 1);
-      break;
-    }
-  }
+  return knex("bicicleta").delete().where("id", aBiciId);
 };
 
 module.exports = Bicicleta;
